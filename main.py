@@ -26,7 +26,6 @@ def main():
     args = parser.parse_args()
 
     if not args.text_prompt:
-        print(12)
         print('ERROR: No prompt found')
         sys.exit(1)
 
