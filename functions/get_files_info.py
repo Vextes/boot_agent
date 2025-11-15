@@ -1,0 +1,21 @@
+import os
+
+def get_files_info(working_directory, directory="."):
+    # path setup
+    wd_path = os.path.abspath(working_directory)
+    dir_abs_path = os.path.abspath(os.path.join(working_directory, directory))
+
+    # return errors for invalid directory inputs
+    if not dir_abs_path.startswith(wd_path):
+        return f'Error: Cannot list "{directory}" as it is outside the permitted working directory'
+    if not os.path.isdir(dir_abs_path):
+        return f'Error: "{directory}" is not a directory'
+    
+    # logic
+    result = []
+    for file in os.listdir(dir_abs_path):
+        file_path = os.path.join(dir_abs_path, file)
+        is_file = os.path.isfile(file_path)
+        size = os.path.getsize(file_path)
+        result.append(f"- {file}: file_size={size} bytes, is_dir={not is_file}")
+    return "\n".join(result)
