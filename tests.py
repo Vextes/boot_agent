@@ -1,8 +1,35 @@
 from functions.get_files_info import get_files_info
 from functions.get_file_content import get_file_content
 from functions.write_file import write_file
+from functions.run_python_file import run_python_file
 
 def test():
+    test1 = run_python_file("calculator", "main.py")
+    print("Result for test1:")
+    print(f"{test1}\n")
+    
+    test2 = run_python_file("calculator", "main.py", ["3 + 5"])
+    print("Result for test2:")
+    print(f"{test2}\n")
+    
+    test3 = run_python_file("calculator", "tests.py")
+    print("Result for test3:")
+    print(f"{test3}\n")
+    
+    test4 = run_python_file("calculator", "../main.py")
+    print("Result for test4:")
+    print(f"{test4}\n")
+    
+    test5 = run_python_file("calculator", "nonexistent.py")
+    print("Result for test5:")
+    print(f"{test5}\n")
+    
+    test6 = run_python_file("calculator", "lorem.txt")
+    print("Result for test6:")
+    print(f"{test6}\n")
+
+
+def test_write_file():
     test1 = write_file("calculator", "lorem.txt", "wait, this isn't lorem ipsum")
     print("Result for test1:")
     print(f"{test1}\n")
