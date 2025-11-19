@@ -5,7 +5,7 @@ from dotenv import load_dotenv
 from google import genai
 from google.genai import types
 from functions import *
-from call_function import available_functions
+from call_function import *
 
 def main():
     load_dotenv()
@@ -54,8 +54,14 @@ def main():
     if not response.function_calls:
         print(response.text)
 
+    call_result_history = []
     for function_call_part in response.function_calls:
-        print(f"Calling function: {function_call_part.name}({function_call_part.args})")
+        function_call_result = call_function(function_call_part, args.verbose)
+        if not function_call_result.parts[0].function_response.response:
+            raise Exception("ERROR: no function call result")
+        call_result_history.append(function_call_result.parts[0])
+        if args.verbose:
+            print(f"-> {function_call_result.parts[0].function_response.response}")
 
 
 if __name__ == "__main__":
